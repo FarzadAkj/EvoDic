@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<words>
+	<word>
+		<name>hello</name>
+		<translate>سلام</translate>
+		<picture>hello.jpg</picture>
+	</word>
+	<word>
+		<name>hi</name>
+		<translate>سلام</translate>
+		<picture>hello.jpg</picture>
+	</word>
+	<word>
+		<name>hand</name>
+		<translate>دست</translate>
+		<picture>hand.jpg</picture>
+	</word>
+	<word>
+		<name>how</name>
+		<translate>چطور</translate>
+		<picture>how.jpg</picture>
+	</word>	
+	<word>
+		<name>hand writing</name>
+		<translate>دست خط</translate>
+		<picture>handwriting.jpg</picture>
+	</word>
+</words>

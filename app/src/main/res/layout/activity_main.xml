@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#bbbde4"
+    tools:context="com.evoteam.android.dictionary.MainActivity">
+
+
+    <LinearLayout
+        android:id="@+id/fromFlagsLayout"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/fromTextView"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="from :"
+            android:textColor="#3d0710"
+            android:textSize="3mm"
+            android:layout_weight="1"/>
+
+
+
+        <Button
+            android:background="@drawable/iran"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/fromiran"
+            android:layout_margin="5dp"
+            android:layout_weight="1"/>
+
+        <Button
+            android:background="@drawable/england"
+            android:layout_width="35dp"
+            android:layout_height="30dp"
+            android:id="@+id/fromengland"
+            android:layout_margin="5dp"
+            android:layout_weight="1"/>
+
+        <Button
+            android:background="@drawable/iraq"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/fromiraq"
+            android:layout_margin="5dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:textColorHint="#ed5c54"
+        android:id="@+id/editText"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/toFlagsLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:maxLength="35"
+        android:gravity="left"
+        />
+
+    <LinearLayout
+        android:id="@+id/toFlagsLayout"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fromFlagsLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:id="@+id/toTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="to :"
+            android:textColor="#3d0710"
+            android:textSize="3mm"
+            android:layout_weight="1"/>
+
+        <Button
+            android:background="@drawable/iran"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/toiran"
+            android:layout_margin="5dp"
+            android:layout_weight="1"/>
+        <Button
+            android:background="@drawable/england"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:id="@+id/toengland"
+            android:layout_weight="1"/>
+        <Button
+            android:background="@drawable/iraq"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:id="@+id/toiraq"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/recommendedList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/editText"/>
+
+</RelativeLayout>
