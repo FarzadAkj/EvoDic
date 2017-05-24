@@ -31,9 +31,6 @@ public class TranslatedWord extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_translated_word);
 
-        //some music
-        MainActivity.mplayer.start();
-
         init();
 
         Bundle extras = getIntent().getExtras();

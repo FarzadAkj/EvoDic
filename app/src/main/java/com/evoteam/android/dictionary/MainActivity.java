@@ -2,7 +2,6 @@ package com.evoteam.android.dictionary;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -40,16 +39,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static String[] translateTo;
     public static String[] translateFrom;
 
-    public static MediaPlayer mplayer;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //playing some music :))
-        mplayer = MediaPlayer.create(this, R.raw.homayoon);
-        mplayer.start();
 
         init();     //initializing the views
         clicks();   //handling the clicks

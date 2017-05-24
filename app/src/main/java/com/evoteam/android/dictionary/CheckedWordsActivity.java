@@ -29,8 +29,6 @@ public class CheckedWordsActivity extends AppCompatActivity implements AdapterVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checked_words);
 
-        MainActivity.mplayer.start();
-
         init();
         setCheckedList();
         checkedWordsListView.setOnItemClickListener(this);
