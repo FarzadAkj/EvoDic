@@ -14,8 +14,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import com.orhanobut.dialogplus.DialogPlus;
+import com.orhanobut.dialogplus.OnItemClickListener;
 
 import java.util.ArrayList;
 
@@ -25,14 +27,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public DataBaseManager dbManager;
 
     Button toIran;
-    Button toEngland;
-    Button toIraq;
+    //    Button toEngland;
+//    Button toIraq;
     Button fromIran;
     Button fromEngland;
-    Button fromIraq;
+    //    Button fromIraq;
     EditText editText;
-    TextView fromTextView;
-    TextView toTextView;
+//    TextView fromTextView;
+//    TextView toTextView;
     ArrayList<Dictionary> recommendedWords;
     DicPullParser dpp;
     ListView recommendedList;
@@ -44,11 +46,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         init();     //initializing the views
         clicks();   //handling the clicks
 
-        if(getSupportActionBar() != null){
-            getSupportActionBar().setTitle("EvoDic  B-)");
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("EvoDic");
         }
 
         editText.addTextChangedListener(new TextWatcher() {
@@ -74,14 +77,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void clicks(){
-        fromEngland.setOnClickListener(this);
+    private void clicks() {
+//        fromEngland.setOnClickListener(this);
         fromIran.setOnClickListener(this);
-        fromIraq.setOnClickListener(this);
+//        fromIraq.setOnClickListener(this);
         toIran.setOnClickListener(this);
-        toIraq.setOnClickListener(this);
-        toEngland.setOnClickListener(this);
-        toTextView.setOnClickListener(this);
+//        toIraq.setOnClickListener(this);
+//        toEngland.setOnClickListener(this);
+//        toTextView.setOnClickListener(this);
 
         recommendedList.setOnItemClickListener(this);
     }
@@ -91,15 +94,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Injo male mostafa
         dbManager = new DataBaseManager(this);
 
-        toEngland = (Button) findViewById(R.id.toengland);
+//        toEngland = (Button) findViewById(R.id.toengland);
         toIran = (Button) findViewById(R.id.toiran);
-        toIraq = (Button) findViewById(R.id.toiraq);
-        fromIraq = (Button) findViewById(R.id.fromiraq);
+//        toIraq = (Button) findViewById(R.id.toiraq);
+//        fromIraq = (Button) findViewById(R.id.fromiraq);
         fromIran = (Button) findViewById(R.id.fromiran);
-        fromEngland = (Button) findViewById(R.id.fromengland);
+//        fromEngland = (Button) findViewById(R.id.fromengland);
         editText = (EditText) findViewById(R.id.editText);
-        toTextView = (TextView) findViewById(R.id.toTextView);
-        fromTextView = (TextView) findViewById(R.id.fromTextView);
+//        toTextView = (TextView) findViewById(R.id.toTextView);
+//        fromTextView = (TextView) findViewById(R.id.fromTextView);
         recommendedList = (ListView) findViewById(R.id.recommendedList);
 
         recommendedWords = new ArrayList<Dictionary>();
@@ -110,238 +113,284 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+
     @Override
     //animations and controlling the clicks
     public void onClick(View v) {
 
-        switch (v.getId()){
-            case R.id.toiran:
-                if (translateTo[0] == ""){
-                    Toast.makeText(this, R.string.persianChecked, Toast.LENGTH_SHORT).show();
-                    //v.animate().alpha(1f).setDuration(800);
-                    v.animate().rotationYBy(20f).setDuration(500);
-                    toEngland.animate().alpha(0.2f).setDuration(500);
-                    toIraq.animate().alpha(0.2f).setDuration(500);
-                    translateTo[0] = "iran";
-
-                }else if(translateTo[0] != "iran"){
-                    Toast.makeText(this, R.string.persianChecked, Toast.LENGTH_SHORT).show();
-                    v.animate().alpha(1f).setDuration(800);
-                    toEngland.animate().alpha(0.2f).setDuration(500);
-                    toIraq.animate().alpha(0.2f).setDuration(500);
-                    v.animate().rotationYBy(20f).setDuration(500);
-
-
-                    if (translateTo[0] == "england"){
-                        toEngland.animate().rotationYBy(-20f).setDuration(500);
-                    }else if (translateTo[0] == "iraq"){
-                        toIraq.animate().rotationYBy(-20f).setDuration(500);
-                    }
-
-                    translateTo[0] = "iran";
-                }
-
-                break;
-
-            case R.id.toengland:
-
-                if (translateTo[0] == ""){
-                    Toast.makeText(this, R.string.englishChecked, Toast.LENGTH_SHORT).show();
-                    v.animate().alpha(1f).setDuration(800);
-                    v.animate().rotationYBy(20f).setDuration(500);
-                    toIran.animate().alpha(0.2f).setDuration(500);
-                    toIraq.animate().alpha(0.2f).setDuration(500);
-                    translateTo[0] = "england";
-
-                }else if(translateTo[0] != "england"){
-                    Toast.makeText(this, R.string.englishChecked, Toast.LENGTH_SHORT).show();
-                    v.animate().alpha(1f).setDuration(800);
-                    toIran.animate().alpha(0.2f).setDuration(500);
-                    toIraq.animate().alpha(0.2f).setDuration(500);
-                    v.animate().rotationYBy(20f).setDuration(500);
-
-
-                    if (translateTo[0] == "iran"){
-                        toIran.animate().rotationYBy(-20f).setDuration(500);
-                    }else if (translateTo[0] == "iraq"){
-                        toIraq.animate().rotationYBy(-20f).setDuration(500);
-                    }
-
-                    translateTo[0] = "england";
-                }
-
-                break;
-
-            case R.id.toiraq:
-                if (translateTo[0] == ""){
-                    Toast.makeText(this, R.string.arabicChecked, Toast.LENGTH_SHORT).show();
-                    v.animate().alpha(1f).setDuration(800);
-                    v.animate().rotationYBy(20f).setDuration(500);
-                    toEngland.animate().alpha(0.2f).setDuration(500);
-                    toIran.animate().alpha(0.2f).setDuration(500);
-                    translateTo[0] = "iraq";
-
-                }else if(translateTo[0] != "iraq"){
-                    Toast.makeText(this, R.string.arabicChecked, Toast.LENGTH_SHORT).show();
-                    v.animate().alpha(1f).setDuration(800);
-                    toEngland.animate().alpha(0.2f).setDuration(500);
-                    toIran.animate().alpha(0.2f).setDuration(500);
-                    v.animate().rotationYBy(20f).setDuration(500);
-
-
-                    if (translateTo[0] == "iran"){
-                        toIran.animate().rotationYBy(-20f).setDuration(500);
-                    }else if (translateTo[0] == "england"){
-                        toEngland.animate().rotationYBy(-20f).setDuration(500);
-                    }
-
-                    translateTo[0] = "iraq";
-                }else{
-                    return;
-                }
-
-                break;
-
-            case R.id.toTextView:
-                switch (translateTo[0]){
-                    case "":
-                        translateTo[0] = "";
-                        toIran.animate().alpha(1f).setDuration(500);
-                        toEngland.animate().alpha(1f).setDuration(500);
-                        toIraq.animate().alpha(1f).setDuration(500);
-                        break;
-                    case "iran":
-                        translateTo[0] = "";
-                        toIran.animate().alpha(1f).setDuration(500);
-                        toEngland.animate().alpha(1f).setDuration(500);
-                        toIraq.animate().alpha(1f).setDuration(500);
-                        toIran.animate().rotationYBy(-20f).setDuration(500);
-                        Toast.makeText(this, R.string.pickPersian, Toast.LENGTH_SHORT).show();
-                        break;
-                    case "iraq":
-                        translateTo[0] = "";
-                        toIran.animate().alpha(1f).setDuration(500);
-                        toEngland.animate().alpha(1f).setDuration(500);
-                        toIraq.animate().alpha(1f).setDuration(500);
-                        toIraq.animate().rotationYBy(-20f).setDuration(500);
-                        Toast.makeText(this, R.string.pickَArabic, Toast.LENGTH_SHORT).show();
-                        break;
-                    case "england":
-                        translateTo[0] = "";
-                        toIran.animate().alpha(1f).setDuration(500);
-                        toEngland.animate().alpha(1f).setDuration(500);
-                        toIraq.animate().alpha(1f).setDuration(500);
-                        toEngland.animate().rotationYBy(-20f).setDuration(500);
-                        Toast.makeText(this, R.string.pickEnglish, Toast.LENGTH_SHORT).show();
-                        break;
-                }
-
-                break;
+        switch (v.getId()) {
 
             case R.id.fromiran:
-                if (translateFrom[0] == ""){
-                    v.animate().rotationYBy(20f).setDuration(500);
-                    fromEngland.animate().alpha(0.2f).setDuration(500);
-                    fromIraq.animate().alpha(0.2f).setDuration(500);
-                    translateFrom[0] = "iran";
-                    editText.setHint(R.string.persianPicked);
-                    editText.setGravity(View.FOCUS_RIGHT);
+                DialogPlus dialog = DialogPlus.newDialog(this)
+                        .setAdapter(new com.evoteam.android.dictionary.SimpleAdapter(getApplicationContext(), true))
+                        .setOnItemClickListener(new OnItemClickListener() {
+                            @Override
+                            public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
+                                switch (position) {
+                                    case 0:
+                                        dialog.dismiss();
+                                        if (translateFrom[0] == "") {
+//                                            v.animate().rotationYBy(20f).setDuration(500);
+//                                            fromEngland.animate().alpha(0.2f).setDuration(500);
+//                                            fromIraq.animate().alpha(0.2f).setDuration(500);
+                                            translateFrom[0] = "iran";
+                                            editText.setHint(R.string.persianPicked);
+                                            editText.setGravity(View.FOCUS_RIGHT);
 
-                }else if(translateFrom[0] != "iran"){
-                    v.animate().alpha(1f).setDuration(800);
-                    fromEngland.animate().alpha(0.2f).setDuration(500);
-                    fromIraq.animate().alpha(0.2f).setDuration(500);
-                    v.animate().rotationYBy(20f).setDuration(500);
-                    editText.setHint(R.string.persianPicked);
-                    editText.setGravity(View.FOCUS_RIGHT);
+                                        } else if (translateFrom[0] != "iran") {
+//                                            v.animate().alpha(1f).setDuration(800);
+//                                            fromEngland.animate().alpha(0.2f).setDuration(500);
+//                                            fromIraq.animate().alpha(0.2f).setDuration(500);
+//                                            v.animate().rotationYBy(20f).setDuration(500);
+                                            editText.setHint(R.string.persianPicked);
+                                            editText.setGravity(View.FOCUS_RIGHT);
 
-                    if (translateFrom[0] == "england"){
-                        fromEngland.animate().rotationYBy(-20f).setDuration(500);
-                    }else if (translateFrom[0] == "iraq"){
-                        fromIraq.animate().rotationYBy(-20f).setDuration(500);
-                    }
+                                            if (translateFrom[0] == "england") {
+//                                                fromEngland.animate().rotationYBy(-20f).setDuration(500);
+                                            } else if (translateFrom[0] == "iraq") {
+//                                                fromIraq.animate().rotationYBy(-20f).setDuration(500);
+                                            }
 
-                    translateFrom[0] = "iran";
-                }
+                                            translateFrom[0] = "iran";
+                                        }
+
+                                        break;
+
+                                    case 1:
+                                        dialog.dismiss();
+
+                                        if (translateFrom[0] == "") {
+//                                            v.animate().alpha(1f).setDuration(800);
+//                                            v.animate().rotationYBy(20f).setDuration(500);
+//                                            fromIran.animate().alpha(0.2f).setDuration(500);
+//                                            fromIraq.animate().alpha(0.2f).setDuration(500);
+                                            translateFrom[0] = "england";
+                                            editText.setHint(R.string.englishPicked);
+                                            editText.setGravity(View.SCROLL_INDICATOR_LEFT);
+
+                                        } else if (translateFrom[0] != "england") {
+//                                            v.animate().alpha(1f).setDuration(800);
+//                                            fromIran.animate().alpha(0.2f).setDuration(500);
+//                                            fromIraq.animate().alpha(0.2f).setDuration(500);
+//                                            v.animate().rotationYBy(20f).setDuration(500);
+                                            editText.setHint(R.string.englishPicked);
+                                            editText.setGravity(View.SCROLL_INDICATOR_LEFT);
+
+                                            if (translateFrom[0] == "iran") {
+//                                                fromIran.animate().rotationYBy(-20f).setDuration(500);
+                                            } else if (translateFrom[0] == "iraq") {
+//                                                fromIraq.animate().rotationYBy(-20f).setDuration(500);
+                                            }
+
+                                            translateFrom[0] = "england";
+                                        }
+
+                                        break;
+
+                                    case 2:
+                                        dialog.dismiss();
+
+                                        if (translateFrom[0] == "") {
+//                                            v.animate().alpha(1f).setDuration(800);
+//                                            v.animate().rotationYBy(20f).setDuration(500);
+//                                            fromEngland.animate().alpha(0.2f).setDuration(500);
+//                                            fromIran.animate().alpha(0.2f).setDuration(500);
+                                            translateFrom[0] = "iraq";
+                                            editText.setHint(R.string.arabicPicked);
+                                            editText.setGravity(View.FOCUS_RIGHT);
+
+                                        } else if (translateFrom[0] != "iraq") {
+//                                            v.animate().alpha(1f).setDuration(800);
+//                                            fromEngland.animate().alpha(0.2f).setDuration(500);
+//                                            fromIran.animate().alpha(0.2f).setDuration(500);
+//                                            v.animate().rotationYBy(20f).setDuration(500);
+                                            editText.setHint(R.string.arabicPicked);
+                                            editText.setGravity(View.FOCUS_RIGHT);
+
+                                            if (translateFrom[0] == "iran") {
+//                                                fromIran.animate().rotationYBy(-20f).setDuration(500);
+                                            } else if (translateFrom[0] == "england") {
+//                                                fromEngland.animate().rotationYBy(-20f).setDuration(500);
+                                            }
+
+                                            translateFrom[0] = "iraq";
+                                        } else {
+                                            return;
+                                        }
+
+                                        break;
+                                }
+                            }
+                        })
+                        .setExpanded(true)  // This will enable the expand feature, (similar to android L share dialog)
+                        .create();
+                dialog.show();
+                break;
+
+            case R.id.toiran:
+
+                DialogPlus dialog1 = DialogPlus.newDialog(this)
+                        .setAdapter(new com.evoteam.android.dictionary.SimpleAdapter(getApplicationContext(), true))
+                        .setOnItemClickListener(new OnItemClickListener() {
+                            @Override
+                            public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
+                                switch (position) {
+
+                                    case 0:
+                                        dialog.dismiss();
+
+                                        if (translateTo[0] == "") {
+                                            Toast.makeText(MainActivity.this, R.string.persianChecked, Toast.LENGTH_SHORT).show();
+                                            //v.animate().alpha(1f).setDuration(800);
+//                    v.animate().rotationYBy(20f).setDuration(500);
+//                    toEngland.animate().alpha(0.2f).setDuration(500);
+//                    toIraq.animate().alpha(0.2f).setDuration(500);
+                                            translateTo[0] = "iran";
+
+
+                                        } else if (translateTo[0] != "iran") {
+                                            Toast.makeText(MainActivity.this, R.string.persianChecked, Toast.LENGTH_SHORT).show();
+//                    v.animate().alpha(1f).setDuration(800);
+//                    toEngland.animate().alpha(0.2f).setDuration(500);
+//                    toIraq.animate().alpha(0.2f).setDuration(500);
+//                    v.animate().rotationYBy(20f).setDuration(500);
+
+
+                                            if (translateTo[0] == "england") {
+//                        toEngland.animate().rotationYBy(-20f).setDuration(500);
+                                            } else if (translateTo[0] == "iraq") {
+//                        toIraq.animate().rotationYBy(-20f).setDuration(500);
+                                            }
+
+                                            translateTo[0] = "iran";
+                                        }
+
+                                        break;
+
+                                    case 1:
+                                        dialog.dismiss();
+
+                                        if (translateTo[0] == "") {
+                                            Toast.makeText(MainActivity.this, R.string.englishChecked, Toast.LENGTH_SHORT).show();
+//                    v.animate().alpha(1f).setDuration(800);
+//                    v.animate().rotationYBy(20f).setDuration(500);
+//                    toIran.animate().alpha(0.2f).setDuration(500);
+//                    toIraq.animate().alpha(0.2f).setDuration(500);
+                                            translateTo[0] = "england";
+
+                                        } else if (translateTo[0] != "england") {
+//                    Toast.makeText(this, R.string.englishChecked, Toast.LENGTH_SHORT).show();
+//                    v.animate().alpha(1f).setDuration(800);
+//                    toIran.animate().alpha(0.2f).setDuration(500);
+//                    toIraq.animate().alpha(0.2f).setDuration(500);
+//                    v.animate().rotationYBy(20f).setDuration(500);
+
+
+                                            if (translateTo[0] == "iran") {
+//                        toIran.animate().rotationYBy(-20f).setDuration(500);
+                                            } else if (translateTo[0] == "iraq") {
+//                        toIraq.animate().rotationYBy(-20f).setDuration(500);
+                                            }
+
+                                            translateTo[0] = "england";
+                                        }
+
+                                        break;
+
+                                    case 2:
+                                        dialog.dismiss();
+
+                                        if (translateTo[0] == "") {
+                                            Toast.makeText(MainActivity.this, R.string.arabicChecked, Toast.LENGTH_SHORT).show();
+//                    v.animate().alpha(1f).setDuration(800);
+//                    v.animate().rotationYBy(20f).setDuration(500);
+//                    toEngland.animate().alpha(0.2f).setDuration(500);
+//                    toIran.animate().alpha(0.2f).setDuration(500);
+                                            translateTo[0] = "iraq";
+
+                                        } else if (translateTo[0] != "iraq") {
+//                    Toast.makeText(this, R.string.arabicChecked, Toast.LENGTH_SHORT).show();
+//                    v.animate().alpha(1f).setDuration(800);
+//                    toEngland.animate().alpha(0.2f).setDuration(500);
+//                    toIran.animate().alpha(0.2f).setDuration(500);
+//                    v.animate().rotationYBy(20f).setDuration(500);
+
+
+                                            if (translateTo[0] == "iran") {
+//                        toIran.animate().rotationYBy(-20f).setDuration(500);
+                                            } else if (translateTo[0] == "england") {
+//                        toEngland.animate().rotationYBy(-20f).setDuration(500);
+                                            }
+
+                                            translateTo[0] = "iraq";
+                                        } else {
+                                            return;
+                                        }
+
+                                        break;
+
+//            case R.id.toTextView:
+//                switch (translateTo[0]){
+//                    case "":
+//                        translateTo[0] = "";
+//                        toIran.animate().alpha(1f).setDuration(500);
+//                        toEngland.animate().alpha(1f).setDuration(500);
+//                        toIraq.animate().alpha(1f).setDuration(500);
+//                        break;
+//                    case "iran":
+//                        translateTo[0] = "";
+//                        toIran.animate().alpha(1f).setDuration(500);
+//                        toEngland.animate().alpha(1f).setDuration(500);
+//                        toIraq.animate().alpha(1f).setDuration(500);
+//                        toIran.animate().rotationYBy(-20f).setDuration(500);
+//                        Toast.makeText(this, R.string.pickPersian, Toast.LENGTH_SHORT).show();
+//                        break;
+//                    case "iraq":
+//                        translateTo[0] = "";
+//                        toIran.animate().alpha(1f).setDuration(500);
+//                        toEngland.animate().alpha(1f).setDuration(500);
+//                        toIraq.animate().alpha(1f).setDuration(500);
+//                        toIraq.animate().rotationYBy(-20f).setDuration(500);
+//                        Toast.makeText(this, R.string.pickَArabic, Toast.LENGTH_SHORT).show();
+//                        break;
+//                    case "england":
+//                        translateTo[0] = "";
+//                        toIran.animate().alpha(1f).setDuration(500);
+//                        toEngland.animate().alpha(1f).setDuration(500);
+//                        toIraq.animate().alpha(1f).setDuration(500);
+//                        toEngland.animate().rotationYBy(-20f).setDuration(500);
+//                        Toast.makeText(this, R.string.pickEnglish, Toast.LENGTH_SHORT).show();
+//                        break;
+
+                                }
+
+
+                            }
+                        })
+                        .setExpanded(true)  // This will enable the expand feature, (similar to android L share dialog)
+                        .create();
+                dialog1.show();
+
 
                 break;
 
-            case R.id.fromengland:
 
-                if (translateFrom[0] == ""){
-                    v.animate().alpha(1f).setDuration(800);
-                    v.animate().rotationYBy(20f).setDuration(500);
-                    fromIran.animate().alpha(0.2f).setDuration(500);
-                    fromIraq.animate().alpha(0.2f).setDuration(500);
-                    translateFrom[0] = "england";
-                    editText.setHint(R.string.englishPicked);
-                    editText.setGravity(View.SCROLL_INDICATOR_LEFT);
-
-                }else if(translateFrom[0] != "england"){
-                    v.animate().alpha(1f).setDuration(800);
-                    fromIran.animate().alpha(0.2f).setDuration(500);
-                    fromIraq.animate().alpha(0.2f).setDuration(500);
-                    v.animate().rotationYBy(20f).setDuration(500);
-                    editText.setHint(R.string.englishPicked);
-                    editText.setGravity(View.SCROLL_INDICATOR_LEFT);
-
-                    if (translateFrom[0] == "iran"){
-                        fromIran.animate().rotationYBy(-20f).setDuration(500);
-                    }else if (translateFrom[0] == "iraq"){
-                        fromIraq.animate().rotationYBy(-20f).setDuration(500);
-                    }
-
-                    translateFrom[0] = "england";
-                }
-
-                break;
-
-            case R.id.fromiraq:
-                if (translateFrom[0] == ""){
-                    v.animate().alpha(1f).setDuration(800);
-                    v.animate().rotationYBy(20f).setDuration(500);
-                    fromEngland.animate().alpha(0.2f).setDuration(500);
-                    fromIran.animate().alpha(0.2f).setDuration(500);
-                    translateFrom[0] = "iraq";
-                    editText.setHint(R.string.arabicPicked);
-                    editText.setGravity(View.FOCUS_RIGHT);
-
-                }else if(translateFrom[0] != "iraq"){
-                    v.animate().alpha(1f).setDuration(800);
-                    fromEngland.animate().alpha(0.2f).setDuration(500);
-                    fromIran.animate().alpha(0.2f).setDuration(500);
-                    v.animate().rotationYBy(20f).setDuration(500);
-                    editText.setHint(R.string.arabicPicked);
-                    editText.setGravity(View.FOCUS_RIGHT);
-
-                    if (translateFrom[0] == "iran"){
-                        fromIran.animate().rotationYBy(-20f).setDuration(500);
-                    }else if (translateFrom[0] == "england"){
-                        fromEngland.animate().rotationYBy(-20f).setDuration(500);
-                    }
-
-                    translateFrom[0] = "iraq";
-                }else{
-                    return;
-                }
-
-                break;
-
-
-            default:
-                break;
+//
+//
+//            default:
+//                break;
         }
 
 
     }
 
-    public void setList(String text){
-        if(text.isEmpty()) {
+    public void setList(String text) {
+        if (text.isEmpty()) {
             invisibleTheList();
-        }else if(MainActivity.translateFrom[0] == ""
-                || MainActivity.translateTo[0] == ""){
+        } else if (MainActivity.translateFrom[0] == ""
+                || MainActivity.translateTo[0] == "") {
             invisibleTheList();
-        }else{
+        } else {
             recommendedList.setVisibility(View.VISIBLE);
             recommendedWords = dpp.parseXml(this, text);
             ArrayAdapter<Dictionary> adapter =
@@ -378,7 +427,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int a = dbManager.getHistory().size();
         //controlling the length of
         //if(a == 50){
-            //delete from dataBase
+        //delete from dataBase
 
         //}
         dbManager.addHistory(currentWord);

@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">Dictionary</string>
-    <string name="persianChecked">کلمه شما را به ایرانی ترجمه خواهم کرد!</string>
+    <string name="persianChecked">کلمه شما را به فارسی ترجمه خواهم کرد!</string>
     <string name="arabicChecked">ساترجم کلمتک به اللغه العربیه! </string>
     <string name="englishChecked">I will translate your word to English!</string>
     <string name="pickEnglish">Choose a country for translating!</string>
-    <string name="pickPersian">کشوری را برای ترجمه انتخاب کنید!</string>
+    <string name="pickPersian">زبان ترجمه را انتخاب کنید!</string>
     <string name="pickَArabic">انتخب المملکه للترجمه!</string>
     <string name="arabicPicked">اکتب کلمتک ...</string>
     <string name="persianPicked">کلمه خود را وارد کنید ...</string>
