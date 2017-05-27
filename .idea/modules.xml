@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Dictionary.iml" filepath="$PROJECT_DIR$/Dictionary.iml" />
-      <module fileurl="file://$PROJECT_DIR$/EvoDic.iml" filepath="$PROJECT_DIR$/EvoDic.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/EvoDict.iml" filepath="$PROJECT_DIR$/EvoDict.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
