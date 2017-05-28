@@ -16,6 +16,9 @@ public class DataBaseManager {
     private Context mContext;
     private SQLiteDatabase mSQLiteDatabase;
 
+    public static ArrayList<Dictionary> historyList;
+    public static ArrayList<Dictionary> favoriteList;
+
     public DataBaseManager(Context context){
         mContext = context.getApplicationContext();
         mSQLiteDatabase = new DataBaseHelper(mContext).getWritableDatabase();
@@ -71,7 +74,7 @@ public class DataBaseManager {
     }
 
     public ArrayList getFavorite(){
-        ArrayList<Dictionary> favoriteList = new ArrayList<>();
+        favoriteList = new ArrayList<>();
         FavoriteCursorWrapper cursor = queryFavorite();
 
         cursor.moveToFirst();
@@ -95,7 +98,7 @@ public class DataBaseManager {
     }
 
     public ArrayList getHistory(){
-        ArrayList<Dictionary> historyList = new ArrayList<>();
+        historyList = new ArrayList<>();
         HistoryCursorWrapper cursor = queryHistory();
 
         cursor.moveToFirst();
@@ -119,10 +122,12 @@ public class DataBaseManager {
     }
 
     public void deleteFavorite(Dictionary word){
-        mSQLiteDatabase.delete(DataBaseSchema.Favorite.NAME, DataBaseSchema.Favorite.culs.F_NAME + "=" + "'" + word.getWord() + "'", null);
+        mSQLiteDatabase.delete(DataBaseSchema.Favorite.NAME, DataBaseSchema.Favorite.culs.F_NAME + "=" + "'" + word.getWord() + "'"
+                + "and " + DataBaseSchema.Favorite.culs.F_TRANSLATE + "=" + "'" + word.getTranslate() + "'", null);
     }
 
     public void deleteHistory(Dictionary word){
-        mSQLiteDatabase.delete(DataBaseSchema.History.NAME, DataBaseSchema.History.culs.H_NAME + "=" + "'" + word.getWord() + "'", null);
+        mSQLiteDatabase.delete(DataBaseSchema.History.NAME, DataBaseSchema.History.culs.H_NAME + "=" + "'" + word.getWord() + "'"
+                + "and " + DataBaseSchema.History.culs.H_TRANSLATE + "=" + "'" + word.getTranslate() + "'", null);
     }
 }

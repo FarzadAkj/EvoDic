@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.orhanobut.dialogplus.DialogPlus;
@@ -41,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static String[] translateTo;
     public static String[] translateFrom;
 
+    TextView guidingTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle("EvoDic");
         }
+        setGuidingText();
 
         editText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -111,8 +115,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         dpp = new DicPullParser();
 
+        guidingTextView = (TextView) findViewById(R.id.guidingTextView);
+
     }
 
+    //setting the guiding text view
+    void setGuidingText(){
+        if (translateFrom[0] == ""){
+            guidingTextView.setVisibility(View.VISIBLE);
+            guidingTextView.setText("Please Choose The Source Language!");
+            return;
+        } else if (translateTo[0] == ""){
+            guidingTextView.setVisibility(View.VISIBLE);
+            guidingTextView.setText("Please Choose The Destination Language!");
+            return;
+        } else {
+            guidingTextView.setVisibility(View.INVISIBLE);
+        }
+    }
 
     @Override
     //animations and controlling the clicks
@@ -136,6 +156,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                             translateFrom[0] = "iran";
                                             editText.setHint(R.string.persianPicked);
                                             editText.setGravity(View.FOCUS_RIGHT);
+                                            setGuidingText();
 
                                         } else if (translateFrom[0] != "iran") {
 //                                            v.animate().alpha(1f).setDuration(800);
@@ -152,6 +173,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                             }
 
                                             translateFrom[0] = "iran";
+                                            setGuidingText();
                                         }
 
                                         break;
@@ -167,6 +189,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                             translateFrom[0] = "england";
                                             editText.setHint(R.string.englishPicked);
                                             editText.setGravity(View.SCROLL_INDICATOR_LEFT);
+                                            setGuidingText();
 
                                         } else if (translateFrom[0] != "england") {
 //                                            v.animate().alpha(1f).setDuration(800);
@@ -183,6 +206,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                             }
 
                                             translateFrom[0] = "england";
+                                            setGuidingText();
                                         }
 
                                         break;
@@ -198,6 +222,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                             translateFrom[0] = "iraq";
                                             editText.setHint(R.string.arabicPicked);
                                             editText.setGravity(View.FOCUS_RIGHT);
+                                            setGuidingText();
 
                                         } else if (translateFrom[0] != "iraq") {
 //                                            v.animate().alpha(1f).setDuration(800);
@@ -214,6 +239,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                             }
 
                                             translateFrom[0] = "iraq";
+                                            setGuidingText();
+
                                         } else {
                                             return;
                                         }
@@ -246,6 +273,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                    toEngland.animate().alpha(0.2f).setDuration(500);
 //                    toIraq.animate().alpha(0.2f).setDuration(500);
                                             translateTo[0] = "iran";
+                                            setGuidingText();
 
 
                                         } else if (translateTo[0] != "iran") {
@@ -263,6 +291,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                             }
 
                                             translateTo[0] = "iran";
+                                            setGuidingText();
                                         }
 
                                         break;
@@ -277,6 +306,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                    toIran.animate().alpha(0.2f).setDuration(500);
 //                    toIraq.animate().alpha(0.2f).setDuration(500);
                                             translateTo[0] = "england";
+                                            setGuidingText();
 
                                         } else if (translateTo[0] != "england") {
 //                    Toast.makeText(this, R.string.englishChecked, Toast.LENGTH_SHORT).show();
@@ -293,6 +323,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                             }
 
                                             translateTo[0] = "england";
+                                            setGuidingText();
                                         }
 
                                         break;
@@ -307,6 +338,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                    toEngland.animate().alpha(0.2f).setDuration(500);
 //                    toIran.animate().alpha(0.2f).setDuration(500);
                                             translateTo[0] = "iraq";
+                                            setGuidingText();
 
                                         } else if (translateTo[0] != "iraq") {
 //                    Toast.makeText(this, R.string.arabicChecked, Toast.LENGTH_SHORT).show();
@@ -323,6 +355,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                             }
 
                                             translateTo[0] = "iraq";
+                                            setGuidingText();
                                         } else {
                                             return;
                                         }
@@ -425,11 +458,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void addToDataBase(Dictionary currentWord) {
 
         int a = dbManager.getHistory().size();
-        //controlling the length of
-        //if(a == 50){
-        //delete from dataBase
-
-        //}
+//        controlling the length of
+        if(a == 50){
+            Dictionary deletingWord = DataBaseManager.historyList.get(49);
+            dbManager.deleteHistory(deletingWord);
+        }
         dbManager.addHistory(currentWord);
     }
 

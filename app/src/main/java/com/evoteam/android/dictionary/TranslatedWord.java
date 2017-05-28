@@ -82,11 +82,13 @@ public class TranslatedWord extends AppCompatActivity{
         if(id == android.R.id.home){
             finish();
         }else{
-            dbManager.addFavorite(currentWord);
-            int a = dbManager.getFavorite().size();
-
             //Managing the dataBase
-//            if(a == 50){}
+            int a = dbManager.getFavorite().size();
+            if(a == 75){
+                Dictionary deletingWord = DataBaseManager.favoriteList.get(74);
+                dbManager.deleteFavorite(deletingWord);
+            }
+            dbManager.addFavorite(currentWord);
         }
 
         return super.onOptionsItemSelected(item);
